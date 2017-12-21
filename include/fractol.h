@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/18 22:58:28 by tlernoul         ###   ########.fr       */
+/*   Updated: 2017/12/21 18:23:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
-
-typedef struct			s_rgb
-{
-	int					r;
-	int					g;
-	int					b;
-	float				l;
-	float				c;
-}						t_rgb;
-
-typedef struct			s_hsl
-{
-	float				h;
-	float				s;
-	float				l;
-}						t_hsl;
 
 typedef struct			s_pnt
 {
@@ -68,5 +52,4 @@ typedef struct			s_env
 	t_img				img;
 }						t_env;
 
-int						color(int clr);
 #endif

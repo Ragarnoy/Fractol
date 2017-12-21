@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:55:19 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/18 16:47:22 by tlernoul         ###   ########.fr       */
+/*   Updated: 2017/12/21 20:27:32 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int main()
 {
+	t_hsl hsl;
 	double x1 = -2.1, x2 = 0.6, y1 = -1.2, y2 = 1.2;
-	double c_r, c_i, z_r, z_i, tmp, i;
+	double c_r, c_i, z_r, z_i, tmp;
 	double zoom_x = W_WIDTH/(x2 - x1), zoom_y = W_HEIGHT/(y2 - y1);
-	int iteration_max = 50;
+	int iteration_max = 90;
 	int x, y;
+	unsigned int i;
 	t_env env;
 	env.mlx_p = mlx_init();
 	env.win.p = mlx_new_window(env.mlx_p, W_WIDTH, W_HEIGHT, "fractol");
@@ -26,6 +28,9 @@ int main()
 	env.img.data = (int*)mlx_get_data_addr(env.img.ptr, &env.img.bpp, &env.img.l_s, &env.img.endian);
 	t_pnt coord;
 
+	hsl.h = 0;
+	hsl.s = 1.0;
+	hsl.l = 0.5;
 	x = 0;
 	while(x++ < W_WIDTH)
 	{
@@ -44,10 +49,15 @@ int main()
 				z_i = (2 * z_i * tmp) + c_i;
 				i++;
 			}
-			if (i == iteration_max)
+			if (i < iteration_max)
+			{
+				hsl.h = hsl.h + 60;
+				if (i % 4)
+					hsl.h = 199;
+				env.img.data[y * W_WIDTH + x] = ft_hsl_to_rgb(hsl);
+			}
+			else if (i == iteration_max)
 				env.img.data[y * W_WIDTH + x] = 0;
-			else
-				env.img.data[y * W_WIDTH + x] = color(i);
 		}
 	}
 	mlx_put_image_to_window(env.mlx_p, env.win.p, env.img.ptr, 0, 0);
