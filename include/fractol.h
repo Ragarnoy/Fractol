@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/21 18:23:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2017/12/23 20:46:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef struct			s_pnt
 	int					y;
 }						t_pnt;
 
+typedef struct			s_edg
+{
+	int					x[2];
+	int					y[2];
+}						t_edg;
+
 typedef struct			s_win
 {
 	void				*p;
@@ -50,6 +56,9 @@ typedef struct			s_env
 	void				*mlx_p;
 	t_win				win;
 	t_img				img;
+	t_edg				edg;
 }						t_env;
+
+int put_hslpixel(float hue, float saturation, float light);
 
 #endif

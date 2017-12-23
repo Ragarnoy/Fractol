@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   put_hslpixel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/11 17:45:30 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/23 20:48:25 by tlernoul         ###   ########.fr       */
+/*   Created: 2017/12/23 17:41:17 by tlernoul          #+#    #+#             */
+/*   Updated: 2017/12/23 17:44:21 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int		usage(int error)
+int		put_hslpixel(float hue, float saturation, float light)
 {
-	if (error == 0)
-		ft_putendl("usage : fractol mandelbrot");
-	else if (error == 1)
-		perror("fractol");
-	exit (-1);
-}
+	t_hsl hsl;
 
-int main(int argc, const char *argv[])
-{
-	t_env *env;
-	if (argc != 2 || !argv[1])
-		return(usage(0));
-	/*
-	 * Peaufiner structures
-	 * isoler mandelbrot
-	 * Jouer avec les events
-	 * Valeurs butoires
-	 * ????????
-	 *
-	*/
-	return (0);
+	hsl.h = hue;
+	hsl.s = saturation;
+	hsl.l = light;
+	return (ft_hsl_to_rgb(hsl));
 }

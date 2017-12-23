@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 22:55:19 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/21 20:27:32 by tlernoul         ###   ########.fr       */
+/*   Updated: 2017/12/23 20:02:26 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@ int main()
 	t_hsl hsl;
 	double x1 = -2.1, x2 = 0.6, y1 = -1.2, y2 = 1.2;
 	double c_r, c_i, z_r, z_i, tmp;
+	x1 *= 1/1.2 ;
+	x2 *= 1/1.2 ;
+	y1 *= 1/1.2 ;
+	y1 *= 1/1.2 ;
+	x1 += -1;
+	x2 += -1;
+	y1 += -1;
+	y2 += -1;
 	double zoom_x = W_WIDTH/(x2 - x1), zoom_y = W_HEIGHT/(y2 - y1);
-	int iteration_max = 90;
+	int iteration_max = 100;
 	int x, y;
 	unsigned int i;
 	t_env env;
@@ -26,7 +34,6 @@ int main()
 	env.win.p = mlx_new_window(env.mlx_p, W_WIDTH, W_HEIGHT, "fractol");
 	env.img.ptr = mlx_new_image(env.mlx_p, W_WIDTH, W_HEIGHT);
 	env.img.data = (int*)mlx_get_data_addr(env.img.ptr, &env.img.bpp, &env.img.l_s, &env.img.endian);
-	t_pnt coord;
 
 	hsl.h = 0;
 	hsl.s = 1.0;
@@ -53,8 +60,9 @@ int main()
 			{
 				hsl.h = hsl.h + 60;
 				if (i % 4)
-					hsl.h = 199;
-				env.img.data[y * W_WIDTH + x] = ft_hsl_to_rgb(hsl);
+					env.img.data[y * W_WIDTH + x] = put_hslpixel(200, hsl.s, hsl.l);
+				else
+					env.img.data[y * W_WIDTH + x] = put_hslpixel(100, 0.7, 0.3);
 			}
 			else if (i == iteration_max)
 				env.img.data[y * W_WIDTH + x] = 0;
