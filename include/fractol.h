@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/23 20:46:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2017/12/29 22:29:28 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct			s_pnt
 
 typedef struct			s_edg
 {
-	int					x[2];
-	int					y[2];
+	double				x[2];
+	double				y[2];
 }						t_edg;
 
 typedef struct			s_win
