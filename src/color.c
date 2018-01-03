@@ -6,9 +6,24 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 22:17:52 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/21 18:29:59 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:30:54 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
+void	palette(t_env *env)
+{
+	int i;
+
+	i = 0;
+	env->pal[0].h = 0;
+	env->pal[0].s = 1.0;
+	env->pal[0].l = 1.0;
+	while (++i < 37)
+	{
+		env->pal[i].h = i * 10;
+		env->pal[i].s = 1.0;
+		env->pal[i].l = 0.5;
+	}
+}

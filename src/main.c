@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:45:30 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/23 20:48:25 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/03 21:13:42 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,28 @@ int main(int argc, const char *argv[])
 	t_env *env;
 	if (argc != 2 || !argv[1])
 		return(usage(0));
+	env = setup_env();
+	ft_putendl("3");
+	julia(env);
+	ft_putendl("4");
 	/*
 	 * Peaufiner structures
 	 * isoler mandelbrot
 	 * Jouer avec les events
 	 * Valeurs butoires
 	 * ????????
-	 *
 	*/
+	mlx_put_image_to_window(env->mlx_p, env->win_p, env->img.ptr, 0, 0);
+	mlx_hook(env->win_p, 2, 2, keyhook, env);
+	mlx_loop(env->mlx_p);
 	return (0);
 }
+
+	/*x1 *= 1/1.2 ;
+	x2 *= 1/1.2 ;
+	y1 *= 1/1.2 ;
+	y1 *= 1/1.2 ;
+	x1 += -1;
+	x2 += -1;
+	y1 += -1;
+	y2 += -1;*/

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2017/12/29 22:13:04 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:24:52 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,25 @@ t_env	*get_env(void)
 		return (NULL);
 	if (!(env->mlx_p = mlx_init()))
 		return (NULL);
+	if (!(env->win_p = mlx_new_window(env->mlx_p, W_WDTH, W_HGHT, "fractol")))
+		return (NULL);
 	return (env);
 }
 
 t_env	*setup_env(void)
 {
-	t_env *env;
+	t_env	*env;
+	int		i;
 
-	env = get_env();
+	i = -1;
+	ft_putendl("3");
+	if (!(env = get_env()))
+		usage(1);
+	while (i++ < FRCTNB)
+		ft_bzero(&env->f[i], sizeof(t_frc));
+	palette(env);
+	env->img.ptr = mlx_new_image(env->mlx_p, W_WDTH, W_HGHT);
+	env->img.data = (int*)mlx_get_data_addr(env->img.ptr, &env->img.bpp,
+					&env->img.l_s, &env->img.endian);
 	return (env);
 }

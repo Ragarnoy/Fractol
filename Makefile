@@ -6,7 +6,7 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2017/12/14 21:16:12 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/03 20:51:36 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,11 @@ INC_PATH = include/
 OBJ_PATH = obj
 SRC_PATH = src
 SRC_NAME = main.c \
+		julia.c \
+		color.c \
+		setup_env.c \
+		mandelbrot.c \
+		put_hslpixel.c \
 
 OBJ_NAME = $(SRC_NAME:c=o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
