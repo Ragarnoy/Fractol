@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/29 21:55:34 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/03 20:36:42 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/05 17:02:59 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	initialize(t_frc *mb)
 	mb->y[1] = 1.2;
 	mb->zm_x = W_WDTH / (mb->x[1] - mb->x[0]);
 	mb->zm_y = W_HGHT / (mb->y[1] - mb->y[0]);
+	ft_putendl("initialized mandelbrot");
 }
 
 static void	compute(t_env *env, t_frc *mb)
@@ -37,13 +38,13 @@ static void	compute(t_env *env, t_frc *mb)
 			mb->z_r = 0;
 			mb->z_i = 0;
 			while ((mb->z_r * mb->z_r) + (mb->z_i * mb->z_i)
-					< 4 && ++i < mb->i_max)
+					< 4 && ++i < env->i_max)
 			{
 				mb->tmp = mb->z_r;
 				mb->z_r = (mb->z_r * mb->z_r) - (mb->z_i * mb->z_i) + mb->c_r;
 				mb->z_i = (2 * mb->z_i * mb->tmp) + mb->c_i;
 			}
-			if (i == mb->i_max)
+			if (i == env->i_max)
 				env->img.data[pt.y * W_WDTH + pt.x] = 0;
 			else
 				put_hslpixel(&env->pal[0], env, pt);
@@ -53,12 +54,7 @@ static void	compute(t_env *env, t_frc *mb)
 
 void		mandelbrot(t_env *env)
 {
-	t_frc			mb;
-
-	ft_putendl("mand");
-	if (!env->f[0].x[0] || !env->f[0].y[1])
-		initialize(&mb);
-	mb.i_max = 25;
-	compute(env, &mb);
-	env->f[0] = mb;
+	if (env->f[0].x[0] == 0 || env->f[0].y[1] == 0)
+		initialize(&env->f[0]);
+	compute (env, &env->f[0]);
 }

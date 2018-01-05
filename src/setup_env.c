@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/03 18:24:52 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:53:43 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_env	*setup_env(void)
 	int		i;
 
 	i = -1;
-	ft_putendl("3");
 	if (!(env = get_env()))
 		usage(1);
 	while (i++ < FRCTNB)

@@ -6,7 +6,7 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2018/01/03 20:51:36 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/05 16:02:42 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ SRC_PATH = src
 SRC_NAME = main.c \
 		julia.c \
 		color.c \
+		events.c \
+		redraw.c \
+		movements.c \
 		setup_env.c \
 		mandelbrot.c \
 		put_hslpixel.c \
