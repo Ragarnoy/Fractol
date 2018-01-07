@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/04 14:53:43 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/07 07:15:42 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ t_env	*setup_env(void)
 	while (i++ < FRCTNB)
 		ft_bzero(&env->f[i], sizeof(t_frc));
 	palette(env);
+	env->flag.pal = 0;
+	env->flag.mouse = 1;
+	env->flag.help = 1;
+	env->flag.shift = 0;
+	env->flag.click = 0;
 	env->img.ptr = mlx_new_image(env->mlx_p, W_WDTH, W_HGHT);
 	env->img.data = (int*)mlx_get_data_addr(env->img.ptr, &env->img.bpp,
 					&env->img.l_s, &env->img.endian);

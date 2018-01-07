@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/29 21:55:34 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/05 17:02:59 by tlernoul         ###   ########.fr       */
+/*   Created: 2018/01/06 22:39:36 by tlernoul          #+#    #+#             */
+/*   Updated: 2018/01/07 06:32:55 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	initialize(t_frc *mb)
 	mb->y[1] = 1.2;
 	mb->zm_x = W_WDTH / (mb->x[1] - mb->x[0]);
 	mb->zm_y = W_HGHT / (mb->y[1] - mb->y[0]);
+	mb->init = 1;
 	ft_putendl("initialized mandelbrot");
 }
 
@@ -45,16 +46,16 @@ static void	compute(t_env *env, t_frc *mb)
 				mb->z_i = (2 * mb->z_i * mb->tmp) + mb->c_i;
 			}
 			if (i == env->i_max)
-				env->img.data[pt.y * W_WDTH + pt.x] = 0;
+				put_hslpixel(&env->pal[env->flag.pal][COLNB - 1], env, pt);
 			else
-				put_hslpixel(&env->pal[0], env, pt);
+				put_hslpixel(&env->pal[env->flag.pal][i % (COLNB - 9)], env, pt);
 		}
 	}
 }
 
 void		mandelbrot(t_env *env)
 {
-	if (env->f[0].x[0] == 0 || env->f[0].y[1] == 0)
+	if (!env->f[0].init)
 		initialize(&env->f[0]);
 	compute (env, &env->f[0]);
 }

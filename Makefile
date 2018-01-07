@@ -6,7 +6,7 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2018/01/05 16:02:42 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/07 06:34:12 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,19 +15,20 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 CPPFLAGS = -Iinclude
 LDLIBS = -lft -lmlx
-LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit
+LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit -fsanitize=address
 INC_PATH = include/
 OBJ_PATH = obj
 SRC_PATH = src
 SRC_NAME = main.c \
-		julia.c \
-		color.c \
-		events.c \
-		redraw.c \
+		colors.c \
+		f_julia.c \
+		m_events.c \
+		f_tricorn.c \
+		kb_events.c \
 		movements.c \
 		setup_env.c \
-		mandelbrot.c \
-		put_hslpixel.c \
+		rendering.c \
+		f_mandelbrot.c \
 
 OBJ_NAME = $(SRC_NAME:c=o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
