@@ -6,7 +6,7 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2018/01/07 06:34:12 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/07 19:50:07 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 CPPFLAGS = -Iinclude
 LDLIBS = -lft -lmlx
-LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit -fsanitize=address
+LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit -lpthread
 INC_PATH = include/
 OBJ_PATH = obj
 SRC_PATH = src

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 17:04:17 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 07:20:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/07 17:50:50 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			pointerhook(int x, int y, void *param)
 		env->f[1].c_i = y * ((double)2 / W_HGHT) - 1;
 		redraw(env);
 	}
-	if (env->flag.shift && env->flag.click)
+	if (env->flag.shift && env->flag.click && env->cur != 1)
 		click_n_drag(x, y, &env->f[env->cur]);
 	return (0);
 }

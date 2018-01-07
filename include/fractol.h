@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 07:22:48 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/07 21:08:59 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
+# include <pthread.h>
 
 typedef struct			s_pnt
 {
@@ -44,8 +45,11 @@ typedef struct			s_flg
 typedef struct			s_frc
 {
 	int					init;
-	double				x[2];
-	double				y[2];
+	unsigned int			i_max;
+	long double				x[2];
+	long double				y[2];
+	long double				zm_x;
+	long double				zm_y;
 	double				c_r;
 	double				c_i;
 	double				z_r;
@@ -53,8 +57,6 @@ typedef struct			s_frc
 	double				tmp;
 	double				tmp_x;
 	double				tmp_y;
-	double				zm_x;
-	double				zm_y;
 }						t_frc;
 
 typedef struct			s_img
@@ -71,7 +73,6 @@ typedef struct			s_env
 	void				*mlx_p;
 	void				*win_p;
 	int					cur;
-	unsigned int		i_max;
 	t_frc				f[3];
 	t_img				img;
 	t_hsl				pal[PALNB][COLNB];
