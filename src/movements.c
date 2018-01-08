@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:44:34 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 21:03:14 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/08 19:30:33 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	zoom_pt(t_frc *edg, int x, int y, int button)
 	double pi;
 	double m;
 
-	if ((button == 1 || button == 4) && edg->i_max < 220 && (edg->i_max += 3))
+	if ((button == 1 || button == 4) && (edg->i_max += 3))
 		m = 1/1.25;
 	if ((button == 2 || button == 5) && edg->i_max > 2 && (edg->i_max -= 3))
 		m = 1.25;
@@ -40,7 +40,7 @@ void	zoom_pt(t_frc *edg, int x, int y, int button)
 	pi = edg->y[0] + (double)y / edg->zm_y;
 	pr -= pr * m;
 	pi -= pi * m;
-	if (edg->x[0] * m + pr != edg->x[1] * m + pr)
+	if ((edg->x[0] * m + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pr != edg->y[1] * m + pi))
 	{
 		edg->x[0] = edg->x[0] * m + pr;
 		edg->x[1] = edg->x[1] * m + pr;

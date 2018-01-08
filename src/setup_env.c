@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 17:16:09 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:02:05 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env	*setup_env(void)
 	palette(env);
 	env->flag.pal = 0;
 	env->flag.mouse = 1;
-	env->flag.help = 1;
+	env->flag.help = 0;
 	env->flag.shift = 0;
 	env->flag.click = 0;
 	env->img.ptr = mlx_new_image(env->mlx_p, W_WDTH, W_HGHT);

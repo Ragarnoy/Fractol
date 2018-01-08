@@ -6,13 +6,13 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 22:17:52 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 17:16:12 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:11:15 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-t_hsl static	gethsl(float h, float s, float l)
+t_hsl		gethsl(float h, float s, float l)
 {
 	t_hsl	hsl;
 
@@ -22,7 +22,7 @@ t_hsl static	gethsl(float h, float s, float l)
 	return(hsl);
 }
 
-void	vaporwave(t_env *env)
+void static	vaporwave(t_env *env)
 {
 	int i;
 
@@ -42,9 +42,19 @@ void	vaporwave(t_env *env)
 	}
 }
 
+void static	debug(t_env *env)
+{
+	int i;
+
+	i = -1;
+	while(i++ < COLNB)
+		env->pal[1][i] = gethsl(i * 24, 1, 0.5);
+}
+
 void	palette(t_env *env)
 {
 	vaporwave(env);
+	debug(env);
 }
 /*
 			env->pal[0][i] = gethsl(283, 0.72, 0);

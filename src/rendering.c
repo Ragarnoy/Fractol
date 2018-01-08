@@ -6,22 +6,32 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 00:42:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 21:10:27 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/08 20:30:51 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-void		multithread(t_env *env)
+static void	*pick_fract(void *param)
 {
-	pthread_t	thread[8];
+	t_pnt *thrd;
+	t_env *env;
 
-
+	env = get_env();
+	if (param)
+		thrd = (t_pnt*)param;
+	if (env->cur == 0)
+		mandelbrot(env, thrd);
+	else if (env->cur == 1)
+		julia(get_env(), thrd);
+	else if (env->cur == 2)
+		tricorn(get_env(), thrd);
+	return (param);
 }
 
 static void	help(t_env *env)
 {
-	int		i;
+	intf	i;
 	char	*str[5];
 
 	i = -1;
@@ -36,37 +46,49 @@ static void	help(t_env *env)
 
 void		draw(t_env *env)
 {
-	if (env->cur == 0)
-		mandelbrot(env);
-	else if (env->cur == 1)
-		julia(env);
-	else if (env->cur == 2)
-		tricorn(env);
+	pthread_t	thread[8];
+	short		i;
+
+	i = -1;
+	if (!env->f[env->cur].init)
+		pick_fract(NULL);
+	while (++i < 8)
+	{
+		env->thrd[i].x = i * W_HGHT / 8;
+		env->thrd[i].y = (i + 1) * W_HGHT / 8;
+	}
+	i = -1;
+	while (++i < 8)
+		pthread_create(&thread[i], NULL, pick_fract, &(env->thrd[i]));
+	i = -1;
+	while (++i < 8)
+		pthread_join(thread[i], NULL);
+	mlx_put_image_to_window(env->mlx_p, env->win_p, env->img.ptr, 0, 0);
 }
 
 void		redraw(t_env *env)
 {
 	ft_bzero(env->img.data, W_WDTH * W_HGHT * 4);
-//	printf("1ZM = %Lf:%Lf\n", env->f[env->cur].zm_x, env->f[env->cur].zm_y);
-//	printf("1CD = %Lf:%Lf || %Lf:%Lf = ", env->f[env->cur].x[0], env->f[env->cur].x[1], env->f[env->cur].y[0], env->f[env->cur].y[1]);
-//	printf("xd = %Lf | yd = %Lf\n\n", env->f[env->cur].x[1] - env->f[env->cur].x[0], env->f[env->cur].y[1] - env->f[env->cur].y[0]);
 	env->f[env->cur].zm_x = W_WDTH / (env->f[env->cur].x[1] - env->f[env->cur].x[0]);
 	env->f[env->cur].zm_y = W_HGHT / (env->f[env->cur].y[1] - env->f[env->cur].y[0]);
-//	printf("2ZM = %Lf:%Lf\n", env->f[env->cur].zm_x, env->f[env->cur].zm_y);
-//	printf("2CD = %Lf:%Lf || %Lf:%Lf\n", env->f[env->cur].x[0], env->f[env->cur].x[1], env->f[env->cur].y[0], env->f[env->cur].y[1]);
-//	ft_putendl("________________________________________________________________________________________________________");
 	draw(env);
-	mlx_put_image_to_window(env->mlx_p, env->win_p, env->img.ptr, 0, 0);
 	if (env->flag.help)
 		help(env);
 }
 
-void		put_hslpixel(t_hsl *hsl, t_env *env, t_pnt pt)
+void		put_hslpixel(t_hsl hsl, t_pnt pt, int spec)
 {
-	if (!hsl)
+	if (spec == 1)
 	{
-		env->img.data[pt.y * W_WDTH + pt.x] = 0;
+		get_env()->img.data[pt.y * W_WDTH + pt.x] = 0;
 		return;
 	}
-	env->img.data[pt.y * W_WDTH + pt.x] = ft_hsl_to_rgb(*hsl) & 0x00FFFFFF;
+	else if (spec == 2)
+	{
+		get_env()->img.data[pt.y * W_WDTH + pt.x] = 0xFFFFFF;
+		return;
+	}
+	else
+		get_env()->img.data[pt.y * W_WDTH + pt.x] =
+							ft_hsl_to_rgb(hsl) & 0x00FFFFFF;
 }

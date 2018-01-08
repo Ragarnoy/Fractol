@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 21:08:59 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/08 21:27:43 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define FRCTNB 2
 # define PALNB 4
 # define COLNB 15
+# define intf uint_fast8_t
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -45,11 +46,12 @@ typedef struct			s_flg
 typedef struct			s_frc
 {
 	int					init;
-	unsigned int			i_max;
-	long double				x[2];
-	long double				y[2];
-	long double				zm_x;
-	long double				zm_y;
+	t_hsl				cl;
+	unsigned int		i_max;
+	double				x[2];
+	double				y[2];
+	double				zm_x;
+	double				zm_y;
 	double				c_r;
 	double				c_i;
 	double				z_r;
@@ -77,10 +79,12 @@ typedef struct			s_env
 	t_img				img;
 	t_hsl				pal[PALNB][COLNB];
 	t_flg				flag;
+	t_pnt				thrd[8];
 }						t_env;
 
-void					put_hslpixel(t_hsl *hsl, t_env *env, t_pnt pt);
+void					put_hslpixel(t_hsl hsl, t_pnt pt, int spec);
 int						usage(int error);
+t_hsl					gethsl(float h, float s, float l);
 t_env					*get_env(void);
 t_env					*setup_env(void);
 void					palette(t_env *env);
@@ -94,8 +98,8 @@ int						pointerhook(int x, int y, void *param);
 int						mousehook(int button, int x, int y, void *param);
 int						releasehook(int button, int x, int y, void *param);
 int						shifthook(int keycode, void *param);
-void					mandelbrot(t_env *env);
-void					julia(t_env *env);
-void					tricorn(t_env *env);
+void					mandelbrot(t_env *env, t_pnt *thrd);
+void					julia(t_env *env, t_pnt *thrd);
+void					tricorn(t_env *env, t_pnt *thrd);
 
 #endif
