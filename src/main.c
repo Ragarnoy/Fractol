@@ -6,11 +6,24 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:45:30 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/07 17:10:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/09 23:59:38 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
+
+int	static	loophook(void *param)
+{
+	t_env	*env;
+
+	env = (t_env*)param;
+	if (env->flag.rot)
+	{
+		env->f[env->cur].cl.h -= 0.5;
+		redraw(env);
+	}
+	return(1);
+}
 
 int			usage(int error)
 {
@@ -48,17 +61,8 @@ int			main(int argc, const char *argv[])
 	mlx_hook(env->win_p, 3, 3, shifthook, env);
 	mlx_hook(env->win_p, 6, (1L << 6), pointerhook, env);
 	mlx_hook(env->win_p, 4, (1L << 2), mousehook, env);
-	mlx_hook(env->win_p, 4, (1L << 2), mousehook, env);
 	mlx_hook(env->win_p, 5, (1L << 3), releasehook, env);
+	mlx_loop_hook(env->mlx_p, loophook, env);
 	mlx_loop(env->mlx_p);
 	return (0);
 }
-
-	/*x1 *= 1/1.2 ;
-	x2 *= 1/1.2 ;
-	y1 *= 1/1.2 ;
-	y1 *= 1/1.2 ;
-	x1 += -1;
-	x2 += -1;
-	y1 += -1;
-	y2 += -1;*/

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 21:27:43 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 00:28:08 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct			s_flg
 	int					mouse;
 	int					pal;
 	int					shift;
+	int					rot;
 }						t_flg;
 
 typedef struct			s_frc
@@ -85,6 +86,7 @@ typedef struct			s_env
 void					put_hslpixel(t_hsl hsl, t_pnt pt, int spec);
 int						usage(int error);
 t_hsl					gethsl(float h, float s, float l);
+t_hsl					hslrange(t_hsl min, t_hsl max, float quo);
 t_env					*get_env(void);
 t_env					*setup_env(void);
 void					palette(t_env *env);

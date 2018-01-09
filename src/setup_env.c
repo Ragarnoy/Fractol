@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 21:02:05 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/09 20:05:47 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_env	*setup_env(void)
 	env->flag.help = 0;
 	env->flag.shift = 0;
 	env->flag.click = 0;
+	env->flag.rot = 0;
 	env->img.ptr = mlx_new_image(env->mlx_p, W_WDTH, W_HGHT);
 	env->img.data = (int*)mlx_get_data_addr(env->img.ptr, &env->img.bpp,
 					&env->img.l_s, &env->img.endian);

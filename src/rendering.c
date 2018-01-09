@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 00:42:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 20:30:51 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/09 20:59:39 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		draw(t_env *env)
 
 void		redraw(t_env *env)
 {
-	ft_bzero(env->img.data, W_WDTH * W_HGHT * 4);
+	//ft_bzero(env->img.data, W_WDTH * W_HGHT * 4);
 	env->f[env->cur].zm_x = W_WDTH / (env->f[env->cur].x[1] - env->f[env->cur].x[0]);
 	env->f[env->cur].zm_y = W_HGHT / (env->f[env->cur].y[1] - env->f[env->cur].y[0]);
 	draw(env);

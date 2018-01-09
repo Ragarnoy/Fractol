@@ -6,11 +6,21 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 22:17:52 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 21:11:15 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 00:32:16 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
+
+t_hsl		hslrange(t_hsl min, t_hsl max, float quo)
+{
+	t_hsl range;
+
+	range.h = min.h + ((max.h - min.h) * quo);
+	range.s = min.s + ((max.s - min.s) * quo);
+	range.l = min.l + ((max.l - min.l) * quo);
+	return (range);
+}
 
 t_hsl		gethsl(float h, float s, float l)
 {

@@ -6,24 +6,11 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 22:40:23 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 21:14:16 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/09 21:36:10 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-
-static void	initialize(t_frc *tc)
-{
-	tc->x[0] = -1.68;
-	tc->x[1] = 1.30;
-	tc->y[0] = -1.2;
-	tc->y[1] = 1.2;
-	tc->zm_x = W_WDTH / (tc->x[1] - tc->x[0]);
-	tc->zm_y = W_HGHT / (tc->y[1] - tc->y[0]);
-	tc->i_max = 22;
-	tc->init = 1;
-	ft_putendl("initialized tricorn");
-}
 
 static void	compute(t_hsl pal[], t_frc tc, int y, int y_max)
 {
@@ -49,7 +36,7 @@ static void	compute(t_hsl pal[], t_frc tc, int y, int y_max)
 			if (i == tc.i_max)
 				put_hslpixel(pal[COLNB - 1], pt, 2);
 			else
-				put_hslpixel(gethsl((i % 100) + 259, 1, 0.4), pt, 0);
+				put_hslpixel(gethsl((i % 361) + tc.cl.h, tc.cl.s, tc.cl.l), pt, 0);
 		}
 	}
 }
@@ -58,7 +45,17 @@ void		tricorn(t_env *env, t_pnt *thrd)
 {
 	if (!env->f[2].init)
 	{
-		initialize(&env->f[2]);
+		env->f[2].x[0] = -1.68;
+		env->f[2].x[1] = 1.30;
+		env->f[2].y[0] = -1.2;
+		env->f[2].y[1] = 1.2;
+		env->f[2].zm_x = W_WDTH / (env->f[2].x[1] - env->f[2].x[0]);
+		env->f[2].zm_y = W_HGHT / (env->f[2].y[1] - env->f[2].y[0]);
+		env->f[2].i_max = 22;
+		env->f[2].cl.h = 1;
+		env->f[2].cl.s = 1.0;
+		env->f[2].cl.l = 0.5;
+		env->f[2].init = 1;
 		return;
 	}
 	compute (env->pal[0], env->f[2], thrd->x, thrd->y);
