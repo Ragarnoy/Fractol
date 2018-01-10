@@ -6,16 +6,27 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 22:40:23 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/09 21:36:10 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:06:24 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-static void	compute(t_hsl pal[], t_frc tc, int y, int y_max)
+static void	calculus(double *c_r, double *c_i, double *z_r, double *z_i)
+{
+	double tmp;
+
+	tmp = *z_r;
+	*z_r = (*z_r * *z_r) - (*z_i * *z_i) + *c_r;
+	*z_i = (-2 * *z_i * tmp) + *c_i;
+}
+
+static void	compute(t_frc tc, int y, int y_max)
 {
 	t_pnt			pt;
 	unsigned int	i;
+	double			z_r;
+	double			z_i;
 
 	pt.x = -1;
 	while (++pt.x < W_WDTH && ((pt.y = y - 1)))
@@ -24,19 +35,15 @@ static void	compute(t_hsl pal[], t_frc tc, int y, int y_max)
 		{
 			tc.c_r = pt.x / tc.zm_x + tc.x[0];
 			tc.c_i = pt.y / tc.zm_y + tc.y[0];
-			tc.z_r = 0;
-			tc.z_i = 0;
-			while ((tc.z_r * tc.z_r) + (tc.z_i * tc.z_i)
+			z_r = 0;
+			z_i = 0;
+			while ((z_r * z_r) + (z_i * z_i)
 					< 4 && ++i < tc.i_max)
-			{
-				tc.tmp = tc.z_r;
-				tc.z_r = (tc.z_r * tc.z_r) - (tc.z_i * tc.z_i) + tc.c_r;
-				tc.z_i = (-2 * tc.z_i * tc.tmp) + tc.c_i;
-			}
+				calculus(&tc.c_r, &tc.c_i, &z_r, &z_i);
 			if (i == tc.i_max)
-				put_hslpixel(pal[COLNB - 1], pt, 2);
+				putpixel(tc.cl[0], pt);
 			else
-				put_hslpixel(gethsl((i % 361) + tc.cl.h, tc.cl.s, tc.cl.l), pt, 0);
+				picker(tc.cl[1], (float)i / (float)tc.i_max, pt);
 		}
 	}
 }
@@ -45,18 +52,19 @@ void		tricorn(t_env *env, t_pnt *thrd)
 {
 	if (!env->f[2].init)
 	{
-		env->f[2].x[0] = -1.68;
-		env->f[2].x[1] = 1.30;
-		env->f[2].y[0] = -1.2;
-		env->f[2].y[1] = 1.2;
+		env->f[2].x[0] = -1.91;
+		env->f[2].x[1] = 1.21;
+		env->f[2].y[0] = -1.54;
+		env->f[2].y[1] = 1.45;
 		env->f[2].zm_x = W_WDTH / (env->f[2].x[1] - env->f[2].x[0]);
 		env->f[2].zm_y = W_HGHT / (env->f[2].y[1] - env->f[2].y[0]);
 		env->f[2].i_max = 22;
-		env->f[2].cl.h = 1;
-		env->f[2].cl.s = 1.0;
-		env->f[2].cl.l = 0.5;
+		env->f[2].cl[0].h = 1;
+		env->f[2].cl[0].s = 1.0;
+		env->f[2].cl[0].l = 1;
+		env->curp = 2;
 		env->f[2].init = 1;
 		return;
 	}
-	compute (env->pal[0], env->f[2], thrd->x, thrd->y);
+	compute(env->f[2], thrd->x, thrd->y);
 }

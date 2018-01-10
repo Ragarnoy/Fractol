@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:44:34 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/08 19:30:33 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:44:50 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void	zoom_pt(t_frc *edg, int x, int y, int button)
 	pi = edg->y[0] + (double)y / edg->zm_y;
 	pr -= pr * m;
 	pi -= pi * m;
-	if ((edg->x[0] * m + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pr != edg->y[1] * m + pi))
+	if ((edg->x[0] * m + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pi != edg->y[1] * m + pi))
 	{
 		edg->x[0] = edg->x[0] * m + pr;
 		edg->x[1] = edg->x[1] * m + pr;
 		edg->y[0] = edg->y[0] * m + pi;
 		edg->y[1] = edg->y[1] * m + pi;
 	}
+	else
+		ft_putendl("nope");
 	redraw(get_env());
 }
 

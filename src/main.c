@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:45:30 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/09 23:59:38 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 22:11:29 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	static	loophook(void *param)
 	env = (t_env*)param;
 	if (env->flag.rot)
 	{
-		env->f[env->cur].cl.h -= 0.5;
+		env->f[env->cur].cl[env->flag.swi].h -= 0.5;
 		redraw(env);
 	}
 	return(1);

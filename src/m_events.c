@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 17:04:17 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/09 17:44:04 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 20:04:51 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int			mousehook(int button, int x, int y, void *param)
 			zoom_pt(&env->f[env->cur], x, y, button);
 		if (env->flag.shift && button == 1)
 			env->flag.click = 1;
+		if (!env->flag.shift)
+			env->flag.click = 0;
 	}
 	return (0);
 }
@@ -50,7 +52,7 @@ int			releasehook(int button, int x, int y, void *param)
 	t_env *env;
 
 	env = (t_env*)param;
-	if (env->flag.shift && button == 1)
+	if (button == 1)
 	{
 		env->flag.click = 0;
 		env->f[env->cur].tmp_x = 0;

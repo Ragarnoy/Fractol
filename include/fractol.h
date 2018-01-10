@@ -6,18 +6,17 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 00:28:08 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:00:27 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 # define MAX_INT 2147483647
-# define W_WDTH 700
-# define W_HGHT 700
-# define FRCTNB 2
-# define PALNB 4
-# define COLNB 15
+# define W_WDTH 900
+# define W_HGHT 900
+# define FRCTNB 4
+# define PALNB 5
 # define intf uint_fast8_t
 
 # include "../mlx/mlx.h"
@@ -34,6 +33,12 @@ typedef struct			s_pnt
 	int					y;
 }						t_pnt;
 
+typedef struct			s_range
+{
+	t_hsl				min;
+	t_hsl				max;
+}						t_range;
+
 typedef struct			s_flg
 {
 	int					click;
@@ -42,12 +47,13 @@ typedef struct			s_flg
 	int					pal;
 	int					shift;
 	int					rot;
+	int					swi;
 }						t_flg;
 
 typedef struct			s_frc
 {
 	int					init;
-	t_hsl				cl;
+	t_hsl				cl[2];
 	unsigned int		i_max;
 	double				x[2];
 	double				y[2];
@@ -76,19 +82,19 @@ typedef struct			s_env
 	void				*mlx_p;
 	void				*win_p;
 	int					cur;
-	t_frc				f[3];
+	int					curp;
+	t_frc				f[FRCTNB];
 	t_img				img;
-	t_hsl				pal[PALNB][COLNB];
+	t_range				rnge[PALNB];
 	t_flg				flag;
 	t_pnt				thrd[8];
 }						t_env;
 
-void					put_hslpixel(t_hsl hsl, t_pnt pt, int spec);
+void					putpixel(t_hsl hsl, t_pnt pt);
 int						usage(int error);
-t_hsl					gethsl(float h, float s, float l);
-t_hsl					hslrange(t_hsl min, t_hsl max, float quo);
 t_env					*get_env(void);
 t_env					*setup_env(void);
+void					picker(t_hsl cl, float q, t_pnt pt);
 void					palette(t_env *env);
 void					draw(t_env *env);
 void					redraw(t_env *env);
@@ -103,5 +109,6 @@ int						shifthook(int keycode, void *param);
 void					mandelbrot(t_env *env, t_pnt *thrd);
 void					julia(t_env *env, t_pnt *thrd);
 void					tricorn(t_env *env, t_pnt *thrd);
+void					bship(t_env *env, t_pnt *thrd);
 
 #endif

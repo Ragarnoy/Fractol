@@ -6,7 +6,7 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2018/01/09 23:30:50 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/10 18:35:09 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_PATH = src
 SRC_NAME = main.c \
 		colors.c \
 		f_julia.c \
+		f_bship.c \
 		m_events.c \
 		f_tricorn.c \
 		kb_events.c \

@@ -6,35 +6,42 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 20:37:00 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/09 21:31:02 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/10 23:06:56 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-static void	compute(t_hsl pal[], t_frc jl, int y, int y_max)
+static void	calculus(double *c_r, double *c_i, double *z_r, double *z_i)
+{
+	double tmp;
+
+	tmp = *z_r;
+	*z_r = (*z_r * *z_r) - (*z_i * *z_i) + *c_r;
+	*z_i = (2 * *z_i * tmp) + *c_i;
+}
+
+static void	compute(t_frc jl, int y, int y_max)
 {
 	t_pnt			pt;
 	unsigned int	i;
+	double			z_r;
+	double			z_i;
 
 	pt.x = -1;
 	while (++pt.x < W_WDTH && ((pt.y = y - 1)))
 	{
 		while (++pt.y < y_max && ((i = -1)))
 		{
-			jl.z_r = pt.x / jl.zm_x + jl.x[0];
-			jl.z_i = pt.y / jl.zm_y + jl.y[0];
-			while ((jl.z_r * jl.z_r) + (jl.z_i * jl.z_i)
+			z_r = pt.x / jl.zm_x + jl.x[0];
+			z_i = pt.y / jl.zm_y + jl.y[0];
+			while ((z_r * z_r) + (z_i * z_i)
 					< 4 && ++i < jl.i_max)
-			{
-				jl.tmp = jl.z_r;
-				jl.z_r = (jl.z_r * jl.z_r) - (jl.z_i * jl.z_i) + jl.c_r;
-				jl.z_i = (2 * jl.z_i * jl.tmp) + jl.c_i;
-			}
+				calculus(&jl.c_r, &jl.c_i, &z_r, &z_i);
 			if (i == jl.i_max)
-				put_hslpixel(pal[COLNB - 1], pt, 1);
+				putpixel(jl.cl[0], pt);
 			else
-				put_hslpixel(gethsl((i % 100) + jl.cl.h, jl.cl.s, jl.cl.l), pt, 0);
+				picker(jl.cl[1], (float)i / (float)jl.i_max, pt);
 		}
 	}
 }
@@ -51,10 +58,12 @@ void		julia(t_env *env, t_pnt *thrd)
 		env->f[1].zm_y = W_HGHT / (env->f[1].y[1] - env->f[1].y[0]);
 		env->f[1].i_max = 22;
 		env->f[1].init = 1;
-		env->f[1].cl.h = 1.0;
-		env->f[1].cl.s = 1.0;
-		env->f[1].cl.l = 0.5;
+		env->f[1].cl[0].h = 1.0;
+		env->f[1].cl[0].s = 1.0;
+		env->f[1].cl[0].l = 0;
+		env->curp = 1;
+		env->f[1].init = 1;
 		return;
 	}
-	compute (env->pal[0], env->f[1], thrd->x, thrd->y);
+	compute(env->f[1], thrd->x, thrd->y);
 }
