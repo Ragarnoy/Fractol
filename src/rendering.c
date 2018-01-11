@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 00:42:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:32:01 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:44:49 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ void		draw(t_env *env)
 
 void		redraw(t_env *env)
 {
-	env->f[env->cur].zm_x = (double)W_WDTH / (env->f[env->cur].x[1] - env->f[env->cur].x[0]);
-	env->f[env->cur].zm_y = (double)W_HGHT / (env->f[env->cur].y[1] - env->f[env->cur].y[0]);
+//	env->f[env->cur].zm_x = (double)W_WDTH / (env->f[env->cur].x[1] - env->f[env->cur].x[0]);
+//	env->f[env->cur].zm_y = (double)W_HGHT / (env->f[env->cur].y[1] - env->f[env->cur].y[0]);
+	if (env->flag.help)
+	{
+		printf("%.20f:%.20f || %.20f:%.20f\nzm %.20f || %.20f\n", env->f[env->cur].x[0],env->f[env->cur].x[1],env->f[env->cur].y[0],env->f[env->cur].y[1], env->f[env->cur].zm_x,env->f[env->cur].zm_y);
+		printf("%.20f:%.20f\n", env->f[env->cur].x[0]/env->f[env->cur].x[1],env->f[env->cur].y[0]/env->f[env->cur].y[1]);
+	}
 	draw(env);
 	if (env->flag.help)
 		help(env);

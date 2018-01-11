@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 15:44:34 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:44:50 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/11 17:55:04 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,17 @@ void	zoom_pt(t_frc *edg, int x, int y, int button)
 	pi = edg->y[0] + (double)y / edg->zm_y;
 	pr -= pr * m;
 	pi -= pi * m;
-	if ((edg->x[0] * m + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pi != edg->y[1] * m + pi))
+	if (get_env()->flag.help)
+		printf("%.20f:%.20f || %f\n", pr, pi, m);
+	//if (((edg->x[0] * m) + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pi != edg->y[1] * m + pi))
+	if (((edg->x[0] * m) + pr != edg->x[1] * m + pr) && (edg->y[0] * m + pi != edg->y[1] * m + pi) && pr + m > 0 && pi + m > 0 && edg->zm_x < 1058068475609556224)
 	{
 		edg->x[0] = edg->x[0] * m + pr;
 		edg->x[1] = edg->x[1] * m + pr;
 		edg->y[0] = edg->y[0] * m + pi;
 		edg->y[1] = edg->y[1] * m + pi;
+		get_env()->f[get_env()->cur].zm_x = (double)W_WDTH / (get_env()->f[get_env()->cur].x[1] - get_env()->f[get_env()->cur].x[0]);
+		get_env()->f[get_env()->cur].zm_y = (double)W_HGHT / (get_env()->f[get_env()->cur].y[1] - get_env()->f[get_env()->cur].y[0]);
 	}
 	else
 		ft_putendl("nope");
