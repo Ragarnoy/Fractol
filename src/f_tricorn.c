@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 22:40:23 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:06:24 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 19:35:12 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void		tricorn(t_env *env, t_pnt *thrd)
 		env->f[2].cl[0].s = 1.0;
 		env->f[2].cl[0].l = 1;
 		env->curp = 2;
+		env->f[2].zml = 0;
 		env->f[2].init = 1;
-		return;
+		return ;
 	}
 	compute(env->f[2], thrd->x, thrd->y);
 }

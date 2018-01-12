@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:00:27 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 20:56:25 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define MAX_INT 2147483647
 # define W_WDTH 900
 # define W_HGHT 900
-# define FRCTNB 4
+# define FRCTNB 6
 # define PALNB 5
 # define intf uint_fast8_t
 
@@ -54,6 +54,7 @@ typedef struct			s_frc
 {
 	int					init;
 	t_hsl				cl[2];
+	int					zml;
 	unsigned int		i_max;
 	double				x[2];
 	double				y[2];
@@ -61,9 +62,6 @@ typedef struct			s_frc
 	double				zm_y;
 	double				c_r;
 	double				c_i;
-	double				z_r;
-	double				z_i;
-	double				tmp;
 	double				tmp_x;
 	double				tmp_y;
 }						t_frc;
@@ -99,7 +97,8 @@ void					palette(t_env *env);
 void					draw(t_env *env);
 void					redraw(t_env *env);
 void					lat_move(t_frc *edg, double x, double y);
-void					zoom_pt(t_frc *edg, int x, int y, int button);
+void					zoom_in(t_frc *edg, int x, int y);
+void					zoom_out(t_frc *edg, int x, int y);
 void					click_n_drag(int x, int y, t_frc *edg);
 int						keyhook(int keycode, void *param);
 int						pointerhook(int x, int y, void *param);
@@ -108,6 +107,8 @@ int						releasehook(int button, int x, int y, void *param);
 int						shifthook(int keycode, void *param);
 void					mandelbrot(t_env *env, t_pnt *thrd);
 void					julia(t_env *env, t_pnt *thrd);
+void					julia2(t_env *env, t_pnt *thrd);
+void					julia3(t_env *env, t_pnt *thrd);
 void					tricorn(t_env *env, t_pnt *thrd);
 void					bship(t_env *env, t_pnt *thrd);
 

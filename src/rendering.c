@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 00:42:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/11 17:44:49 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 21:01:51 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,38 @@ static void	*pick_fract(void *param)
 		tricorn(get_env(), thrd);
 	else if (env->cur == 3)
 		bship(get_env(), thrd);
+	else if (env->cur == 4)
+		julia2(get_env(), thrd);
+	else if (env->cur == 5)
+		julia3(get_env(), thrd);
 	return (param);
 }
 
 static void	help(t_env *env)
 {
 	intf	i;
-	char	*str[5];
+	char	*str[9];
+	int		col;
 
-	i = -1;
-	str[0] = "Help";
+	if (env->curp == 0 || env->f[env->cur].cl[1].l < 0.2)
+		col = 0xFFFFFFFF;
+	else
+		col = 0;
+	i = 0;
+	str[0] = "Help : +/- pour changer la precision";
 	str[1] = "PgUp/PgDown pour changer de fractale";
 	str[2] = "Shift + Click pour le click-n-drag";
-	str[3] = "Clear pour reset la position";
-	str[4] = "End pour verrouiller Julia";
-	while (++i < 5)
-		mlx_string_put(env->mlx_p, env->win_p, 15, (i + 1) * 15, 0, str[i]);
+	str[3] = "End pour verrouiller Julia";
+	str[4] = "Touches fleches pour bouger";
+	str[5] = "Clear pour reset la position";
+	str[6] = "'.' pour changer le mode couleur";
+	str[7] = "4-1 pour alterer la couleur a tel mode";
+	str[8] = "'=' pour activer la rotation de couleur";
+	while (i < 9)
+	{
+		mlx_string_put(env->mlx_p, env->win_p, 8, i * 15 - 1, col, str[i]);
+		i++;
+	}
 }
 
 void		draw(t_env *env)
@@ -70,13 +86,8 @@ void		draw(t_env *env)
 
 void		redraw(t_env *env)
 {
-//	env->f[env->cur].zm_x = (double)W_WDTH / (env->f[env->cur].x[1] - env->f[env->cur].x[0]);
-//	env->f[env->cur].zm_y = (double)W_HGHT / (env->f[env->cur].y[1] - env->f[env->cur].y[0]);
-	if (env->flag.help)
-	{
-		printf("%.20f:%.20f || %.20f:%.20f\nzm %.20f || %.20f\n", env->f[env->cur].x[0],env->f[env->cur].x[1],env->f[env->cur].y[0],env->f[env->cur].y[1], env->f[env->cur].zm_x,env->f[env->cur].zm_y);
-		printf("%.20f:%.20f\n", env->f[env->cur].x[0]/env->f[env->cur].x[1],env->f[env->cur].y[0]/env->f[env->cur].y[1]);
-	}
+	if (env->curp > 4)
+		env->curp = 1;
 	draw(env);
 	if (env->flag.help)
 		help(env);

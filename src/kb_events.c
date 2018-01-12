@@ -6,13 +6,13 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/23 18:49:48 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:50:20 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 20:57:22 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-void static	move(int keycode, t_env *env)
+static void	move(int keycode, t_env *env)
 {
 	double scale;
 
@@ -28,7 +28,7 @@ void static	move(int keycode, t_env *env)
 	redraw(env);
 }
 
-void static	keypad(int keycode, t_env *env)
+static void	keypad(int keycode, t_env *env)
 {
 	if (keycode == 86)
 		env->f[env->cur].cl[env->flag.swi].h++;
@@ -55,16 +55,12 @@ void static	keypad(int keycode, t_env *env)
 	redraw(env);
 }
 
-void static	misc_key(int keycode, t_env *env)
+static void	misc_key(int keycode, t_env *env)
 {
 	if (keycode == 257)
 		env->flag.shift = 1;
 	else if (keycode == 4)
-	{
-		printf("%.20f:%.20f || %.20f:%.20f\nzm %.20f || %.20f\n", env->f[env->cur].x[0],env->f[env->cur].x[1],env->f[env->cur].y[0],env->f[env->cur].y[1], env->f[env->cur].zm_x,env->f[env->cur].zm_y);
-		printf("%.20f:%.20f\n", env->f[env->cur].x[0]/env->f[env->cur].x[1],env->f[env->cur].y[0]/env->f[env->cur].y[1]);
 		env->flag.help = !env->flag.help;
-	}
 	else if (keycode == 24 && env->curp < PALNB - 1)
 		env->curp++;
 	else if (keycode == 27 && env->curp > 0)
@@ -78,11 +74,17 @@ int			keyhook(int keycode, void *param)
 
 	env = (t_env*)param;
 	if (keycode == 53)
-		exit (0);
-	else if (keycode == 116 && env->cur < FRCTNB && ++env->cur)
+		exit(0);
+	else if (keycode == 116 && env->cur < FRCTNB - 1 && ++env->cur)
+	{
+		env->curp = env->cur;
 		redraw(env);
+	}
 	else if (keycode == 121 && env->cur > 0 && env->cur--)
+	{
+		env->curp = env->cur;
 		redraw(env);
+	}
 	else if (keycode == 119)
 		env->flag.mouse = !env->flag.mouse;
 	else if (keycode >= 123 && keycode <= 126)

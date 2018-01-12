@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 22:39:36 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:07:05 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 21:34:17 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		mandelbrot(t_env *env, t_pnt *thrd)
 		env->f[0].cl[0].s = 1;
 		env->f[0].cl[0].l = 1;
 		env->curp = 0;
+		env->f[0].zml = 0;
 		env->f[0].init = 1;
 		return ;
 	}

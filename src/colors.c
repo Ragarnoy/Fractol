@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 22:17:52 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:22:01 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 15:52:57 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_hsl	hslrange(t_range rnge, float quo)
 {
-	t_hsl col;
+	t_hsl	col;
 
 	col.h = rnge.min.h + ((rnge.max.h - rnge.min.h) * quo);
 	col.s = rnge.min.s + ((rnge.max.s - rnge.min.s) * quo);
@@ -32,9 +32,9 @@ static t_hsl	gethsl(float h, float s, float l)
 	return (hsl);
 }
 
-void		picker(t_hsl cl, float quo, t_pnt pt)
+void			picker(t_hsl cl, float quo, t_pnt pt)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = get_env();
 	if (env->curp == FRCTNB)
@@ -45,7 +45,7 @@ void		picker(t_hsl cl, float quo, t_pnt pt)
 
 void			palette(t_env *env)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	env->rnge[0].min = gethsl(288, 1, 0);
@@ -65,10 +65,3 @@ void			palette(t_env *env)
 		env->f[i].cl[1].l = 0.5;
 	}
 }
-/*
-			env->pal[0][i] = gethsl(283, 0.72, 0);
-		else if (i < 9)
-			env->pal[0][i] = gethsl(157, 1, 0.51);
-		else if (i < 12)
-			env->pal[0][i] = gethsl(231, 0.68, 0.72);
-		else*/

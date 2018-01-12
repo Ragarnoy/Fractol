@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 20:37:00 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 23:06:56 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 20:18:32 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void		julia(t_env *env, t_pnt *thrd)
 {
 	if (!env->f[1].init)
 	{
-		env->f[1].x[0] = -1;
-		env->f[1].x[1] = 1;
+		env->f[1].x[0] = -1.2;
+		env->f[1].x[1] = 1.2;
 		env->f[1].y[0] = -1.2;
 		env->f[1].y[1] = 1.2;
 		env->f[1].zm_x = W_WDTH / (env->f[1].x[1] - env->f[1].x[0]);
@@ -62,8 +62,9 @@ void		julia(t_env *env, t_pnt *thrd)
 		env->f[1].cl[0].s = 1.0;
 		env->f[1].cl[0].l = 0;
 		env->curp = 1;
+		env->f[1].zml = 0;
 		env->f[1].init = 1;
-		return;
+		return ;
 	}
 	compute(env->f[1], thrd->x, thrd->y);
 }

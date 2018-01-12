@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/06 17:04:17 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/10 20:04:51 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/12 20:55:55 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ int			pointerhook(int x, int y, void *param)
 	t_env *env;
 
 	env = (t_env*)param;
-	if (env->cur == 1 && env->flag.mouse)
+	if ((env->cur == 1 || env->cur >= 4) && env->flag.mouse)
 	{
-		env->f[1].c_r = x * ((double)3 / W_WDTH) - 1.6;
-		env->f[1].c_i = y * ((double)2 / W_HGHT) - 1;
+		env->f[env->cur].c_r = x * ((double)3 / W_WDTH) - 1.6;
+		env->f[env->cur].c_i = y * ((double)2 / W_HGHT) - 1;
 		redraw(env);
 	}
-	if (env->flag.shift && env->flag.click && env->cur != 1)
+	if (env->flag.shift && env->flag.click && (env->cur != 1 && env->cur != 4))
 		click_n_drag(x, y, &env->f[env->cur]);
-	if (env->cur == 1 && !env->flag.mouse && env->flag.click && env->flag.shift)
+	if ((env->cur == 1 || env->cur >= 4) && !env->flag.mouse &&
+			env->flag.click && env->flag.shift)
 		click_n_drag(x, y, &env->f[env->cur]);
 	return (0);
 }
@@ -37,8 +38,20 @@ int			mousehook(int button, int x, int y, void *param)
 	env = (t_env*)param;
 	if (y > 1)
 	{
-		if (button > 0 && button < 6 && button != 3 && !env->flag.shift)
-			zoom_pt(&env->f[env->cur], x, y, button);
+		if ((button == 1 || button == 4) && !env->flag.shift &&
+				env->f[env->cur].zml < 155)
+		{
+			zoom_in(&env->f[env->cur], x, y);
+			++env->f[env->cur].zml;
+			redraw(get_env());
+		}
+		if ((button == 2 || button == 5) && !env->flag.shift &&
+				env->f[env->cur].i_max > 2)
+		{
+			zoom_out(&env->f[env->cur], x, y);
+			--env->f[env->cur].zml;
+			redraw(get_env());
+		}
 		if (env->flag.shift && button == 1)
 			env->flag.click = 1;
 		if (!env->flag.shift)
