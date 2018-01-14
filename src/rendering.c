@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 00:42:37 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/12 21:01:51 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/14 02:59:03 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,17 @@ static void	*pick_fract(void *param)
 	else if (env->cur == 3)
 		bship(get_env(), thrd);
 	else if (env->cur == 4)
-		julia2(get_env(), thrd);
+		multibrot(get_env(), thrd);
 	else if (env->cur == 5)
-		julia3(get_env(), thrd);
+		newton(get_env(), thrd);
+	else if (env->cur > 5)
+		variants(env, thrd);
 	return (param);
 }
 
 static void	help(t_env *env)
 {
-	intf	i;
+	short	i;
 	char	*str[9];
 	int		col;
 
@@ -64,30 +66,30 @@ static void	help(t_env *env)
 
 void		draw(t_env *env)
 {
-	pthread_t	thread[8];
+	pthread_t	thread[THRDNB];
 	short		i;
 
 	i = -1;
 	if (!env->f[env->cur].init)
 		pick_fract(NULL);
-	while (++i < 8)
+	while (++i < THRDNB)
 	{
-		env->thrd[i].x = i * W_HGHT / 8;
-		env->thrd[i].y = (i + 1) * W_HGHT / 8;
+		env->thrd[i].x = i * W_HGHT / THRDNB;
+		env->thrd[i].y = (i + 1) * W_HGHT / THRDNB;
 	}
 	i = -1;
-	while (++i < 8)
+	while (++i < THRDNB)
 		pthread_create(&thread[i], NULL, pick_fract, &(env->thrd[i]));
 	i = -1;
-	while (++i < 8)
+	while (++i < THRDNB)
 		pthread_join(thread[i], NULL);
 	mlx_put_image_to_window(env->mlx_p, env->win_p, env->img.ptr, 0, 0);
 }
 
 void		redraw(t_env *env)
 {
-	if (env->curp > 4)
-		env->curp = 1;
+	if (env->curp > PALNB)
+		env->curp = 0;
 	draw(env);
 	if (env->flag.help)
 		help(env);

@@ -6,17 +6,17 @@
 #    By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/21 23:59:53 by tlernoul          #+#    #+#              #
-#    Updated: 2018/01/12 20:56:42 by tlernoul         ###   ########.fr        #
+#    Updated: 2018/01/14 03:05:46 by tlernoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS = -Iinclude
 LDLIBS = -lft -lmlx
 ASAN_OPTIONS = detect_leaks=1
-LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit -lpthread -fsanitize=address
+LDFLAGS = -Llibft -Lmlx -framework OpenGL -framework AppKit -lpthread
 INC_PATH = include/
 OBJ_PATH = obj
 SRC_PATH = src
@@ -26,12 +26,16 @@ SRC_NAME = main.c \
 		f_bship.c \
 		f_julia2.c \
 		f_julia3.c \
+		f_newton.c \
 		m_events.c \
 		f_tricorn.c \
+		f_newton2.c \
+		f_newton3.c \
 		kb_events.c \
 		movements.c \
 		setup_env.c \
 		rendering.c \
+		f_multibrot.c \
 		f_mandelbrot.c \
 
 OBJ_NAME = $(SRC_NAME:c=o)

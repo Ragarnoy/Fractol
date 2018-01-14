@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 16:23:01 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/12 20:38:05 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/14 01:48:10 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,16 @@ t_env	*setup_env(void)
 	env->img.data = (int*)mlx_get_data_addr(env->img.ptr, &env->img.bpp,
 					&env->img.l_s, &env->img.endian);
 	return (env);
+}
+
+void	variants(t_env *env, t_pnt *thrd)
+{
+	if (env->cur == 6)
+		newton2(get_env(), thrd);
+	else if (env->cur == 7)
+		newton3(get_env(), thrd);
+	else if (env->cur == 8)
+		julia2(get_env(), thrd);
+	else if (env->cur == 9)
+		julia3(get_env(), thrd);
 }

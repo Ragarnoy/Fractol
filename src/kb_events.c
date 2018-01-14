@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/23 18:49:48 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/12 20:57:22 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/14 02:13:45 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			keyhook(int keycode, void *param)
 
 	env = (t_env*)param;
 	if (keycode == 53)
-		exit(0);
+		exitprog();
 	else if (keycode == 116 && env->cur < FRCTNB - 1 && ++env->cur)
 	{
 		env->curp = env->cur;

@@ -6,7 +6,7 @@
 /*   By: tlernoul <tlernoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 17:26:50 by tlernoul          #+#    #+#             */
-/*   Updated: 2018/01/12 20:56:25 by tlernoul         ###   ########.fr       */
+/*   Updated: 2018/01/14 02:59:41 by tlernoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # define MAX_INT 2147483647
 # define W_WDTH 900
 # define W_HGHT 900
-# define FRCTNB 6
-# define PALNB 5
-# define intf uint_fast8_t
+# define FRCTNB 10
+# define THRDNB 16
+# define PALNB 11
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -90,6 +90,7 @@ typedef struct			s_env
 
 void					putpixel(t_hsl hsl, t_pnt pt);
 int						usage(int error);
+t_hsl					gethsl(float h, float s, float l);
 t_env					*get_env(void);
 t_env					*setup_env(void);
 void					picker(t_hsl cl, float q, t_pnt pt);
@@ -106,10 +107,16 @@ int						mousehook(int button, int x, int y, void *param);
 int						releasehook(int button, int x, int y, void *param);
 int						shifthook(int keycode, void *param);
 void					mandelbrot(t_env *env, t_pnt *thrd);
+void					multibrot(t_env *env, t_pnt *thrd);
 void					julia(t_env *env, t_pnt *thrd);
 void					julia2(t_env *env, t_pnt *thrd);
 void					julia3(t_env *env, t_pnt *thrd);
 void					tricorn(t_env *env, t_pnt *thrd);
 void					bship(t_env *env, t_pnt *thrd);
+void					newton(t_env *env, t_pnt *thrd);
+void					newton2(t_env *env, t_pnt *thrd);
+void					newton3(t_env *env, t_pnt *thrd);
+void					variants(t_env *env, t_pnt *thrd);
+void					exitprog(void);
 
 #endif
